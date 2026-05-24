@@ -1,69 +1,67 @@
 name: CI_Tests
 
 on:
-    push:
-        branches:
-             - "**"
-    pull_request:
-  
+  push:
+    branches:
+      - '**'
+  pull_request:
+
 permissions:
-    contents: read
+  contents: read
 
 jobs:
-    typecheck:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v5
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
 
-        - name: Setup Node.js
-          uses: actions/setup-node@v5
-          with:
-            node-version: 22
-            cache: npm
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
 
-        - name: Install dependencies
-          run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-        - name: Run TypeScript typecheck
-          run: npm run typecheck
-      
-    prettier-format:
-      runs-on: ubuntu-latest
-      
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v5
+      - name: Run TypeScript typecheck
+        run: npm run typecheck
 
-        - name: Setup Node.js
-          uses: actions/setup-node@v5
-          with:
-            node-version: 22
-            cache: npm
+  prettier-format:
+    runs-on: ubuntu-latest
 
-        - name: Install dependencies
-          run: npm ci
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
 
-        - name: Run Prettier check
-          run: npm run format:check
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
 
-    test:
-      runs-on: ubuntu-latest
-      
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v5
+      - name: Install dependencies
+        run: npm ci
 
-        - name: Setup Node.js
-          uses: actions/setup-node@v5
-          with:
-            node-version: 22
-            cache: npm
+      - name: Run Prettier check
+        run: npm run format:check
 
-        - name: Install dependencies
-          run: npm ci
-    
-        - name: Run test
-          run: npm test
-        
-  
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run test
+        run: npm test
